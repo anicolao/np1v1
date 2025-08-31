@@ -8,7 +8,7 @@ This roadmap outlines the development phases for the NP 1v1 League System, start
 
 ### 1.1 Project Setup & Infrastructure
 - [ ] Initialize Node.js/TypeScript project structure
-- [ ] Set up PostgreSQL database with basic schema
+- [ ] Set up MongoDB database with basic schema
 - [ ] Configure Discord bot with necessary permissions
 - [ ] Implement basic logging and error handling
 - [ ] Set up development and production environments
@@ -122,7 +122,7 @@ This roadmap outlines the development phases for the NP 1v1 League System, start
 - [ ] CORS and web security configuration
 
 ### 4.2 Frontend Development
-- [ ] React/Next.js web application
+- [ ] TypeScript with Svelte/SvelteKit web application
 - [ ] Tournament bracket visualization
 - [ ] Player statistics dashboards
 - [ ] Historical data browsing
