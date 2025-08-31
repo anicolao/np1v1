@@ -93,52 +93,56 @@ This document outlines the technical architecture and design decisions for the N
 
 ### Core Entities
 
-```sql
--- Players
-Players:
-  - id (primary key)
-  - discord_id (unique)
-  - username
-  - rating (Glicko rating)
-  - rating_deviation (Glicko RD)
-  - last_played_date
-  - created_at
+```javascript
+// Players Collection
+{
+  _id: ObjectId,
+  discordId: String (unique),
+  username: String,
+  rating: Number, // Glicko rating
+  ratingDeviation: Number, // Glicko RD
+  lastPlayedDate: Date,
+  createdAt: Date
+}
 
--- Tournaments
-Tournaments:
-  - id (primary key)
-  - name
-  - start_date
-  - signup_deadline
-  - status (signup, active, completed)
-  - bracket_data (JSON)
+// Tournaments Collection
+{
+  _id: ObjectId,
+  name: String,
+  startDate: Date,
+  signupDeadline: Date,
+  status: String, // signup, active, completed
+  bracketData: Object, // flexible bracket structure
+  participants: [
+    {
+      playerId: ObjectId,
+      seedPosition: Number,
+      eliminatedInRound: Number
+    }
+  ]
+}
 
--- Tournament Participants
-TournamentParticipants:
-  - tournament_id (foreign key)
-  - player_id (foreign key)
-  - seed_position
-  - eliminated_in_round
+// Games Collection
+{
+  _id: ObjectId,
+  password: String,
+  tournamentId: ObjectId, // optional
+  leagueMonth: String, // optional (YYYY-MM format)
+  player1Id: ObjectId,
+  player2Id: ObjectId,
+  winnerId: ObjectId, // optional
+  status: String, // created, active, completed
+  createdAt: Date,
+  completedAt: Date
+}
 
--- Games
-Games:
-  - id (primary key)
-  - password
-  - tournament_id (nullable)
-  - league_month (nullable)
-  - player1_id (foreign key)
-  - player2_id (foreign key)
-  - winner_id (foreign key, nullable)
-  - status (created, active, completed)
-  - created_at
-  - completed_at
-
--- League Participations
-LeagueParticipations:
-  - id (primary key)
-  - player_id (foreign key)
-  - month_year
-  - opted_in_date
+// League Participations Collection
+{
+  _id: ObjectId,
+  playerId: ObjectId,
+  monthYear: String, // YYYY-MM format
+  optedInDate: Date
+}
 ```
 
 ## Discord Bot Design
@@ -182,33 +186,17 @@ LeagueParticipations:
 ## Technology Stack
 
 ### Backend
-- **Language**: Node.js/TypeScript or Python
-- **Database**: PostgreSQL (structured data) + Redis (caching)
+- **Language**: TypeScript
+- **Runtime**: Bun (execution tool)
+- **Development Environment**: Nix flake with TypeScript tools via Bun & package.json
+- **Database**: MongoDB (flexible document storage for evolving game data)
 - **Discord**: discord.js library
 - **Scheduling**: node-cron or similar
 - **Rating**: Custom Glicko implementation
 
 ### Future Web Interface
-- **Frontend**: React/Next.js
-- **API**: REST or GraphQL
-- **Authentication**: Discord OAuth
-
-## Scalability Considerations
-
-### Performance
-- Database indexing on frequently queried fields
-- Caching of rating calculations and leaderboards
-- Batch processing for large tournament operations
-
-### Reliability
-- Graceful error handling for Discord API limits
-- Backup and recovery procedures
-- Monitoring and logging for system health
-
-### Extensibility
-- Plugin architecture for different game types (2v2, 3v3, FFA)
-- Configurable tournament formats
-- Multiple Discord server support
+- **Frontend**: TypeScript with Svelte/SvelteKit
+- **Authentication**: Avoid authentication unless necessary (Discord bot handles user identity)
 
 ## Security & Privacy
 
