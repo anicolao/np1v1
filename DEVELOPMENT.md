@@ -20,10 +20,9 @@
    # Edit .env with your actual credentials
    ```
 
-3. **Verify setup:**
+3. **Build and test:**
    ```bash
    npm run build
-   node dist/verify.js
    ```
 
 4. **Start development:**
