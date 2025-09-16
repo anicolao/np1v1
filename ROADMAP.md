@@ -63,7 +63,7 @@ This roadmap outlines the development phases for the NP 1v1 League System, start
 - [ ] Player rating display commands
 - [ ] Basic leaderboard functionality
 - [ ] Rating-based tournament seeding
-- [ ] League seeding via ratings when available
+- [ ] Rating-based league seeding
 
 ### 2.3 Enhanced Game Management
 - [ ] Automated game status tracking
