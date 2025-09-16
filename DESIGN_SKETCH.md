@@ -221,7 +221,7 @@ This document outlines the technical architecture and design decisions for the N
 ## Security & Privacy
 
 ### Data Protection
-- Minimal data collection (Discord ID, game results only)
+- Minimal data collection (Discord ID, game histories only)
 - Secure password generation and transmission
 - Regular data backups with encryption
 
