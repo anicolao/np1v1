@@ -21,11 +21,15 @@ The NP 1v1 League System facilitates organized competitive play through:
 - Random or rating-based seeding
 - Automated bracket generation and management
 - Bye assignments for odd numbers of players
+- October tournament includes additional top 4 playoff from league finishers
 
 ### League System  
 - Monthly game creation for all opted-in players
 - Two-week signup window before each month
 - Rating-based or random player matching
+- Game format preferences (1 game, best of 3, or best of 5)
+- Preferential matching of players with same format preference
+- Bye assignments needed when there are an odd number of players
 - Continuous or periodic participation options
 
 ### Game Management
@@ -52,7 +56,7 @@ The system consists of:
 - **Discord Bot**: Primary user interface for signups, notifications, and results
 - **Game Server**: Backend logic for tournament/league management and game coordination
 - **Database**: Player profiles, game results, ratings, and tournament/league data
-- **Web Interface**: (Future) Comprehensive viewing of results and statistics
+- **Web Interface**: (Future) Comprehensive viewing of results and statistics with Discord federated login
 
 See [DESIGN_SKETCH.md](DESIGN_SKETCH.md) for detailed technical architecture.
 

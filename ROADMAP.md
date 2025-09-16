@@ -8,39 +8,44 @@ This roadmap outlines the development phases for the NP 1v1 League System, start
 
 ### 1.1 Project Setup & Infrastructure
 - [ ] Initialize Node.js/TypeScript project structure
-- [ ] Set up MongoDB database with basic schema
 - [ ] Configure Discord bot with necessary permissions
 - [ ] Implement basic logging and error handling
 - [ ] Set up development and production environments
 
-### 1.2 Core Discord Bot Commands
-- [ ] `/tournament signup` - Player tournament registration
-- [ ] `/tournament bracket` - Display current tournament bracket
-- [ ] `/tournament status` - Show upcoming/active tournaments
+### 1.2 Basic Match Creation
+- [ ] Set up MongoDB database with basic schema
+- [ ] `/seek match` - Player posts a match request that others can join
+- [ ] Basic match creation between two players
+- [ ] Simple game result recording (manual admin input)
 - [ ] Basic command validation and error responses
 - [ ] Help system and command documentation
 
-### 1.3 Tournament Management
+### 1.3 Tournament Commands
+- [ ] `/tournament signup` - Player tournament registration
+- [ ] `/tournament bracket` - Display current tournament bracket
+- [ ] `/tournament status` - Show upcoming/active tournaments
 - [ ] Tournament creation (quarterly schedule)
 - [ ] Player signup collection and validation
 - [ ] Random bracket generation for single-elimination
-- [ ] Bye assignment for odd numbers of players
-- [ ] Tournament state management (signup → active → completed)
 
-### 1.4 Game Coordination
+### 1.4 Tournament Management
+- [ ] Tournament state management (signup → active → completed)
+- [ ] Bye assignment for odd numbers of players
+- [ ] Winner advancement in tournament bracket
+
+### 1.5 Game Coordination & Automatic Result Collection
 - [ ] Unique password generation (adjective-noun format)
 - [ ] Game creation with player assignment
 - [ ] Discord notifications when games are ready
-- [ ] Basic game result collection (manual admin input)
-- [ ] Winner advancement in tournament bracket
-
-### 1.5 Basic Data Storage
+- [ ] Automatic game result collection
 - [ ] Player registration and Discord ID mapping
+
+### 1.6 Basic Data Storage
 - [ ] Tournament participant tracking
 - [ ] Game result recording
 - [ ] Simple bracket state persistence
 
-**Deliverable**: Functional Discord bot that can run quarterly single-elimination tournaments with manual game result input.
+**Deliverable**: Functional Discord bot that can run quarterly single-elimination tournaments with automatic game result collection.
 
 ---
 
@@ -51,6 +56,7 @@ This roadmap outlines the development phases for the NP 1v1 League System, start
 - [ ] `/league bracket` - Display monthly pairings
 - [ ] Monthly league scheduling and automation
 - [ ] Random player pairing for league games
+- [ ] Rating-based league matchmaking
 - [ ] League result tracking and display
 
 ### 2.2 Basic Rating System
@@ -59,6 +65,7 @@ This roadmap outlines the development phases for the NP 1v1 League System, start
 - [ ] Player rating display commands
 - [ ] Basic leaderboard functionality
 - [ ] Rating-based tournament seeding
+- [ ] League seeding via ratings when available
 
 ### 2.3 Enhanced Game Management
 - [ ] Automated game status tracking
@@ -81,25 +88,24 @@ This roadmap outlines the development phases for the NP 1v1 League System, start
 ## Phase 3: Advanced Features & Polish (v0.3)
 
 ### 3.1 Advanced Rating & Matchmaking
-- [ ] Rating-based league matchmaking
 - [ ] Skill-balanced pairings
 - [ ] Rating uncertainty handling
 - [ ] Performance analytics and trends
 - [ ] Advanced leaderboard views
 
-### 3.2 Enhanced User Experience
-- [ ] Continuous league opt-in/opt-out
-- [ ] Player statistics and history
-- [ ] Tournament/league result filtering
-- [ ] Multi-tournament tracking
-- [ ] Personal performance dashboards
-
-### 3.3 Administrative Tools
+### 3.2 Administrative Tools
 - [ ] Admin commands for tournament management
 - [ ] Manual result correction capabilities
 - [ ] Player management (ban, restore, etc.)
 - [ ] System health monitoring
 - [ ] Backup and recovery procedures
+
+### 3.3 Enhanced User Experience
+- [ ] Continuous league opt-in/opt-out
+- [ ] Player statistics and history
+- [ ] Tournament/league result filtering
+- [ ] Multi-tournament tracking
+- [ ] Personal performance dashboards
 
 ### 3.4 Quality & Reliability
 - [ ] Comprehensive error handling
@@ -114,28 +120,21 @@ This roadmap outlines the development phases for the NP 1v1 League System, start
 
 ## Phase 4: Web Interface (v1.0)
 
-### 4.1 Backend API Development
-- [ ] RESTful API for data access
-- [ ] Discord OAuth authentication
-- [ ] Rate limiting and security measures
-- [ ] API documentation
-- [ ] CORS and web security configuration
-
-### 4.2 Frontend Development
+### 4.1 Frontend Development
 - [ ] TypeScript with Svelte/SvelteKit web application
 - [ ] Tournament bracket visualization
 - [ ] Player statistics dashboards
 - [ ] Historical data browsing
 - [ ] Mobile-responsive design
 
-### 4.3 Advanced Analytics
+### 4.2 Advanced Analytics
 - [ ] Performance trend analysis
 - [ ] Head-to-head statistics
 - [ ] Tournament success tracking
 - [ ] Rating history visualization
 - [ ] Comparative player analysis
 
-### 4.4 Enhanced Game Management
+### 4.3 Enhanced Game Management
 - [ ] Web-based result reporting
 - [ ] Game replay integration (if available)
 - [ ] Advanced tournament formats
@@ -166,7 +165,6 @@ This roadmap outlines the development phases for the NP 1v1 League System, start
 - [ ] Team formation and management
 - [ ] Player profiles and avatars
 - [ ] Achievement and badge systems
-- [ ] Social features and messaging
 - [ ] Tournament streaming integration
 
 ### 5.4 Platform Integration
@@ -174,9 +172,8 @@ This roadmap outlines the development phases for the NP 1v1 League System, start
 - [ ] Third-party game integration
 - [ ] Streaming platform webhooks
 - [ ] External API integrations
-- [ ] Mobile application
 
-**Deliverable**: Comprehensive competitive gaming platform supporting multiple formats and games.
+**Deliverable**: Comprehensive competitive gaming platform supporting multiple formats.
 
 ---
 
@@ -186,26 +183,22 @@ This roadmap outlines the development phases for the NP 1v1 League System, start
 1. **Minimum Viable Product**: Phase 1 provides core tournament functionality
 2. **User Feedback**: Gather community input after each phase
 3. **Iterative Improvement**: Refine features based on real usage
-4. **Scalability**: Design for growth from the beginning
 
 ### Technical Considerations
 - **Database Design**: Plan schema for future expansion
 - **API Architecture**: Design REST endpoints for web interface
 - **Monitoring**: Implement logging and metrics from Phase 1
-- **Security**: Security-first approach for Discord and web integration
+- **Security**: Consider security in designs
 
 ### Risk Mitigation
 - **Discord API Limits**: Implement proper rate limiting and queuing
 - **Data Loss**: Regular backups and recovery procedures
-- **Scalability**: Design for horizontal scaling from the start
 - **Community Growth**: Plan for increasing user load
 
 ### Success Metrics
 - **Phase 1**: Successfully run first quarterly tournament
-- **Phase 2**: Complete monthly league with rating updates
-- **Phase 3**: Active community of 50+ regular players
-- **Phase 4**: Web interface adoption by 80% of active players
-- **Phase 5**: Support for multiple game types and formats
+- **Phase 2**: Six months of league play with players in every month
+- **Phase 3**: Active community of 20+ regular players
 
 ---
 
@@ -214,16 +207,13 @@ This roadmap outlines the development phases for the NP 1v1 League System, start
 ### Immediate Next Steps (Phase 1.1)
 1. Set up development environment
 2. Create Discord application and bot
-3. Initialize database schema
-4. Implement basic bot framework
-5. Create first tournament signup command
+3. Basic bot commands to ensure functionality is working
 
 ### Resources Needed
 - Discord Developer Account
-- PostgreSQL database hosting
+- MongoDB database hosting
 - Node.js development environment
 - Testing Discord server
-- Basic monitoring/logging infrastructure
 
 ### Estimated Timeline
 - **Phase 1**: 2-3 months
