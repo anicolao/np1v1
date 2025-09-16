@@ -27,20 +27,18 @@ This roadmap outlines the development phases for the NP 1v1 League System, start
 - [ ] Tournament creation (quarterly schedule)
 - [ ] Player signup collection and validation
 - [ ] Random bracket generation for single-elimination
-
-### 1.4 Tournament Management
 - [ ] Tournament state management (signup → active → completed)
 - [ ] Bye assignment for odd numbers of players
 - [ ] Winner advancement in tournament bracket
 
-### 1.5 Game Coordination & Automatic Result Collection
+### 1.4 Game Coordination & Automatic Result Collection
 - [ ] Unique password generation (adjective-noun format)
 - [ ] Game creation with player assignment
 - [ ] Discord notifications when games are ready
 - [ ] Automatic game result collection
 - [ ] Player registration and Discord ID mapping
 
-### 1.6 Basic Data Storage
+### 1.5 Basic Data Storage
 - [ ] Tournament participant tracking
 - [ ] Game result recording
 - [ ] Simple bracket state persistence
