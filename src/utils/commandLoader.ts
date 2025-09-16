@@ -41,18 +41,4 @@ export class CommandLoader {
   getCommandData(): any[] {
     return Array.from(this.commands.values()).map(command => command.data.toJSON());
   }
-
-  /**
-   * Get a specific command by name
-   */
-  getCommand(name: string): SlashCommand | undefined {
-    return this.commands.get(name);
-  }
-
-  /**
-   * Get all loaded commands
-   */
-  getAllCommands(): Collection<string, SlashCommand> {
-    return this.commands;
-  }
 }
