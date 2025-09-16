@@ -8,14 +8,14 @@ This document outlines the technical architecture and design decisions for the N
 
 ```
 ┌─────────────────┐    ┌─────────────────┐    ┌─────────────────┐
-│   Discord Bot   │    │   Web Interface │    │   Game Client   │
-│                 │    │   (Future)      │    │                 │
+│   Discord Bot   │    │   Web Interface │    │   Game Server   │
+│                 │    │   (Future)      │    │   (External)    │
 └─────────┬───────┘    └─────────┬───────┘    └─────────┬───────┘
           │                      │                      │
           └──────────────────────┼──────────────────────┘
                                  │
                     ┌─────────────┴───────────┐
-                    │     Game Server         │
+                    │  Tournament Server      │
                     │   - Tournament Logic    │
                     │   - League Management   │
                     │   - Game Coordination   │
@@ -128,8 +128,8 @@ This document outlines the technical architecture and design decisions for the N
   password: String,
   tournamentId: ObjectId, // optional
   leagueMonth: String, // optional (YYYY-MM format)
-  player1Id: ObjectId,
-  player2Id: ObjectId,
+  team1: [ObjectId], // array of player IDs for team 1
+  team2: [ObjectId], // array of player IDs for team 2
   winnerId: ObjectId, // optional
   status: String, // created, active, completed
   createdAt: Date,
@@ -161,6 +161,7 @@ This document outlines the technical architecture and design decisions for the N
   └── results - View monthly league results
 
 /game
+  ├── create - Create a new game and find an opponent
   ├── status - Check your active games
   └── report - Report game result (admin/verification)
 
@@ -188,7 +189,7 @@ This document outlines the technical architecture and design decisions for the N
 ### Backend
 - **Language**: TypeScript
 - **Runtime**: Bun (execution tool)
-- **Development Environment**: Nix flake with TypeScript tools via Bun & package.json
+- **Development Environment**: Nix flake with TypeScript tools via Bun & package.json, Xcode support
 - **Database**: MongoDB (flexible document storage for evolving game data)
 - **Discord**: discord.js library
 - **Scheduling**: node-cron or similar
