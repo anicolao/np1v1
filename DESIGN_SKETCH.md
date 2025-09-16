@@ -112,7 +112,25 @@ This document outlines the technical architecture and design decisions for the N
   startDate: Date,
   signupDeadline: Date,
   status: String, // signup, active, completed
-  bracketData: Object, // flexible bracket structure
+  bracketData: {
+    rounds: [
+      {
+        roundNumber: Number,
+        matches: [
+          {
+            matchId: ObjectId,
+            player1Id: ObjectId,
+            player2Id: ObjectId,
+            winnerId: ObjectId, // optional
+            gameId: ObjectId, // optional
+            isBye: Boolean
+          }
+        ]
+      }
+    ],
+    totalRounds: Number,
+    currentRound: Number
+  }, // single-elimination tournament bracket structure
   participants: [
     {
       playerId: ObjectId,
@@ -157,6 +175,7 @@ This document outlines the technical architecture and design decisions for the N
 
 /league
   ├── signup - Register for upcoming month
+  ├── optin - Enable continuous participation for future months
   ├── optout - Disable continuous participation
   └── results - View monthly league results
 
