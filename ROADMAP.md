@@ -14,7 +14,7 @@ This roadmap outlines the development phases for the NP 1v1 League System, start
 
 ### 1.2 Basic Match Creation
 - [ ] Set up MongoDB database with basic schema
-- [ ] `/seek match` - Player posts a match request that others can join
+- [ ] `/game create` - Player posts a match request that others can join
 - [ ] Basic match creation between two players
 - [ ] Simple game result recording (manual admin input)
 - [ ] Basic command validation and error responses
@@ -51,13 +51,21 @@ This roadmap outlines the development phases for the NP 1v1 League System, start
 
 ### 2.1 Monthly League Implementation
 - [ ] `/league signup` - Monthly league registration
+- [ ] `/league optin` - Enable continuous participation for future months
+- [ ] `/league optout` - Disable continuous participation
 - [ ] `/league bracket` - Display monthly pairings
 - [ ] Monthly league scheduling and automation
 - [ ] Random player pairing for league games
-- [ ] Rating-based league matchmaking
 - [ ] League result tracking and display
 
-### 2.2 Basic Rating System
+### 2.2 Notification System
+- [ ] Scheduled tournament announcements
+- [ ] League signup reminders
+- [ ] Game ready notifications
+- [ ] Result announcements
+- [ ] Deadline warnings
+
+### 2.3 Basic Rating System
 - [ ] Implement Glicko rating calculations
 - [ ] Rating updates after each game
 - [ ] Player rating display commands
@@ -65,19 +73,12 @@ This roadmap outlines the development phases for the NP 1v1 League System, start
 - [ ] Rating-based tournament seeding
 - [ ] Rating-based league seeding
 
-### 2.3 Enhanced Game Management
+### 2.4 Enhanced Game Management
 - [ ] Automated game status tracking
 - [ ] Player identity verification system
 - [ ] Game password secure delivery
 - [ ] Result validation and confirmation
 - [ ] Game history per player
-
-### 2.4 Notification System
-- [ ] Scheduled tournament announcements
-- [ ] League signup reminders
-- [ ] Game ready notifications
-- [ ] Result announcements
-- [ ] Deadline warnings
 
 **Deliverable**: Complete tournament and league system with basic rating functionality.
 
@@ -86,7 +87,6 @@ This roadmap outlines the development phases for the NP 1v1 League System, start
 ## Phase 3: Advanced Features & Polish (v0.3)
 
 ### 3.1 Advanced Rating & Matchmaking
-- [ ] Skill-balanced pairings
 - [ ] Rating uncertainty handling
 - [ ] Performance analytics and trends
 - [ ] Advanced leaderboard views
@@ -167,7 +167,6 @@ This roadmap outlines the development phases for the NP 1v1 League System, start
 
 ### 5.4 Platform Integration
 - [ ] Multiple Discord server support
-- [ ] Third-party game integration
 - [ ] Streaming platform webhooks
 - [ ] External API integrations
 

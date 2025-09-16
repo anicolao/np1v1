@@ -180,7 +180,7 @@ This document outlines the technical architecture and design decisions for the N
   └── results - View monthly league results
 
 /game
-  ├── create - Create a new game and find an opponent
+  ├── create - Create a new game and advertise the game
   ├── status - Check your active games
   └── report - Report game result (admin/verification)
 
