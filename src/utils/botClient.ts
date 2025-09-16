@@ -1,13 +1,16 @@
-import { Client, Collection, GatewayIntentBits, Events } from 'discord.js';
+import { Client, Collection, GatewayIntentBits, Events, REST, Routes } from 'discord.js';
 import { logger } from '../utils/logger.js';
 import { DiscordError } from '../utils/errorHandler.js';
 import { config } from '../config/config.js';
+import { CommandLoader } from '../utils/commandLoader.js';
+import { SlashCommand } from '../types/commands.js';
 
 /**
  * Extended Discord client with command collection
  */
 export class BotClient extends Client {
-  public commands = new Collection();
+  public commands: Collection<string, SlashCommand>;
+  private commandLoader: CommandLoader;
 
   constructor() {
     super({
@@ -17,6 +20,9 @@ export class BotClient extends Client {
         GatewayIntentBits.MessageContent,
       ],
     });
+
+    this.commands = new Collection();
+    this.commandLoader = new CommandLoader();
   }
 
   /**
@@ -24,6 +30,9 @@ export class BotClient extends Client {
    */
   async initialize(): Promise<void> {
     try {
+      // Load commands
+      this.commands = this.commandLoader.loadCommands();
+
       // Set up event handlers
       this.setupEventHandlers();
 
@@ -42,9 +51,12 @@ export class BotClient extends Client {
    */
   private setupEventHandlers(): void {
     // Bot ready event
-    this.once(Events.ClientReady, (client) => {
+    this.once(Events.ClientReady, async (client) => {
       logger.info(`Logged in as ${client.user?.tag || 'Unknown'}`);
       logger.info(`Bot is ready and serving ${client.guilds.cache.size} guilds`);
+      
+      // Register slash commands
+      await this.registerSlashCommands();
     });
 
     // Error handling
@@ -60,17 +72,46 @@ export class BotClient extends Client {
     this.on(Events.InteractionCreate, async (interaction) => {
       if (!interaction.isChatInputCommand()) return;
 
-      logger.debug('Received slash command', {
+      const command = this.commands.get(interaction.commandName);
+
+      if (!command) {
+        logger.warn('Unknown command received', {
+          command: interaction.commandName,
+          user: interaction.user.tag,
+          guild: interaction.guild?.name || 'DM',
+        });
+        
+        await interaction.reply({
+          content: 'Unknown command. Please try again.',
+          ephemeral: true,
+        });
+        return;
+      }
+
+      logger.debug('Executing slash command', {
         command: interaction.commandName,
         user: interaction.user.tag,
         guild: interaction.guild?.name || 'DM',
       });
 
-      // TODO: Implement command handling in future phases
-      await interaction.reply({
-        content: 'Command functionality will be implemented in upcoming phases.',
-        ephemeral: true,
-      });
+      try {
+        await command.execute(interaction);
+      } catch (error) {
+        logger.error('Error executing command', {
+          command: interaction.commandName,
+          error: error instanceof Error ? error.message : String(error),
+          user: interaction.user.tag,
+          guild: interaction.guild?.name || 'DM',
+        });
+
+        const errorMessage = 'There was an error executing this command.';
+        
+        if (interaction.replied || interaction.deferred) {
+          await interaction.followUp({ content: errorMessage, ephemeral: true });
+        } else {
+          await interaction.reply({ content: errorMessage, ephemeral: true });
+        }
+      }
     });
 
     // Guild join/leave events for monitoring
@@ -88,6 +129,39 @@ export class BotClient extends Client {
         guildId: guild.id,
       });
     });
+  }
+
+  /**
+   * Register slash commands with Discord
+   */
+  private async registerSlashCommands(): Promise<void> {
+    try {
+      logger.info('Registering slash commands with Discord...');
+
+      const rest = new REST().setToken(config.discord.token);
+      const commandData = this.commandLoader.getCommandData();
+
+      if (config.discord.guildId) {
+        // Register commands for specific guild (faster for development)
+        await rest.put(
+          Routes.applicationGuildCommands(config.discord.clientId, config.discord.guildId),
+          { body: commandData }
+        );
+        logger.info(`Successfully registered ${commandData.length} guild commands for development`);
+      } else {
+        // Register commands globally (takes up to 1 hour to propagate)
+        await rest.put(
+          Routes.applicationCommands(config.discord.clientId),
+          { body: commandData }
+        );
+        logger.info(`Successfully registered ${commandData.length} global commands`);
+      }
+    } catch (error) {
+      logger.error('Failed to register slash commands', {
+        error: error instanceof Error ? error.message : String(error),
+      });
+      throw new DiscordError('Failed to register slash commands');
+    }
   }
 
   /**
