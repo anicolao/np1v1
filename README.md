@@ -21,7 +21,7 @@ The NP 1v1 League System facilitates organized competitive play through:
 - Random or rating-based seeding
 - Automated bracket generation and management
 - Bye assignments for odd numbers of players
-- October tournament includes additional top 4 playoff from league finishers
+- October tournament includes additional top 4 playoff from league finishers running in parallel
 
 ### League System  
 - Monthly game creation for all opted-in players
